@@ -1,0 +1,5 @@
+---
+- name: Copy to nfs servers
+  copy:
+    src: "/tmp/disconnect/"
+    dest: "/mnt/nfs/{{ ansible_date_time.date }}/"

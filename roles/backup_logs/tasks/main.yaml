@@ -1,0 +1,13 @@
+--- 
+- name: Fetch file from remote server
+  fetch:
+    src: /tmp/data_transformer.log
+    dest: "/tmp/disconnect/{{ inventory_hostname }}/data_transformer.log"
+    flat: yes
+    fail_on_missing: true
+  when: "'Detected Events' not in script_output.stdout"    
+
+- name: Create log path variable
+  set_fact:
+    log_path: "/tmp/{{ ansible_date_time.date }}/{{ inventory_hostname }}/data_transformer.log.{{ ansible_date_time.hour }}"
+  when: "'Detected Events' not in script_output.stdout"    

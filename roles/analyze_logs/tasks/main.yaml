@@ -1,0 +1,17 @@
+---
+- name: Copy the binary to the target hosts
+  copy:
+    src: main
+    dest: /tmp/main
+    mode: "u+x"
+    owner: root
+  become: true
+
+- name: Execute the binary
+  command: /tmp/main
+  register: script_output
+
+- name: Display the script's output
+  debug:
+    var: script_output.stdout
+  when: script_output is defined

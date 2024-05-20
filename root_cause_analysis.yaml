@@ -1,0 +1,16 @@
+- name: Check Mongo Locks
+  hosts: mongo
+  gather_facts: false
+  roles:
+    - mongo_locks
+
+- name: Check Data-Transformer
+  hosts: data-transformer
+  roles:
+    - analyze_logs
+    - backup_logs
+
+- name: Upload Log Backup
+  hosts: nfs
+  roles:
+    - upload_backup

@@ -1,0 +1,10 @@
+---
+- name: Read log file
+  shell: grep "locks" /var/log/mongo/mongod.log | awk '{print $1}'
+  register: log_output
+  changed_when: false
+
+- name: Print error lines
+  debug:
+    msg: "Lock found at: {{ item }}"
+  loop: "{{ log_output.stdout_lines }}"
